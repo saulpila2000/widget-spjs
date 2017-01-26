@@ -397,7 +397,9 @@ cpdefine("inline:com-chilipeppr-widget-serialport", ["chilipeppr_ready", "jquery
             '/onBroadcast' : 'This signal is published when we see a broadcast message come in from SPJS and we simply regurgitate it out on this signal for any widget to listen to. To send a broadcast signal into SPJS you just use the command \"broadcast blah blah\" and then SPJS re-broadcasts that to all listeners with a packet like {Cmd:\"Broadcast\", Msg:\"blah blah\"}. For example, the ShuttleXpress CNC jog shuttle connects to SPJS on its own and when you click buttons on the device it broadcasts them to SPJS so widgets inside ChiliPeppr can respond to those clicks.',
             '/onAnnounce' : 'This signal is published when we see an announce message come in from SPJS and we simply regurgitate it out on this signal for any widget to listen to. An announce signal is part of the Cayenn protocol. Basically an IoT device like an ESP8266 sends in a UDP broadcast to the network announcing its existence. SPJS listens for those and then sends a copy of the announcement to any SPJS listeners, like us. Then this SPJS widget publishes it out so other widgets inside ChiliPeppr can listen for the message.',
             '/onFeedRateOverride' : 'This signal is published when we get a feed rate override update from SPJS. It will contain the payload similar to {"Cmd":"FeedRateOverride","Desc":"Providing you status of feed rate override.","Port":"COM7","FeedRateOverride":0,"IsOn":false}',
-            '/recvStatus' : 'Send in a /requestStatus and we will send you back a /recvStatus letting you know if SPJS is connected or not to the Serial Port JSON Server. The payload that comes to you in /recvStatus looks like {"Connected":true, "Websocket": ws } or {"connected":false, "websocket":null}. If you want to be pushed an event when the socket connects or disconnects you should subscribe to /ws/onconnect and /ws/ondisconnect'
+            '/recvStatus' : 'Send in a /requestStatus and we will send you back a /recvStatus letting you know if SPJS is connected or not to the Serial Port JSON Server. The payload that comes to you in /recvStatus looks like {"Connected":true, "Websocket": ws } or {"connected":false, "websocket":null}. If you want to be pushed an event when the socket connects or disconnects you should subscribe to /ws/onconnect and /ws/ondisconnect',
+            '/widgetLoaded':"When widget has loaded"
+            
         },
         subscribe: {
             '/wsConnect':'Connect to host. Pass host, success,error',
@@ -655,6 +657,8 @@ chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "G1 X10 F500\\n");
             
             console.log(this.name + " done loading.");
             console.groupEnd();
+            chilipeppr.publish("/" + this.id + "/widgetLoaded");
+
         },
         setupSubnetScan: function() {
             window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;   //compatibility for firefox and chrome
