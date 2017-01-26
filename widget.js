@@ -365,15 +365,18 @@ chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "G1 X10 F500\\n");
             chilipeppr.subscribe("/" + this.id + "/getlist", this, function () {
                 chilipeppr.publish("/" + this.id + "/list", this.portlist);
             });
-
+            
+            chilipeppr.subscribe("/" + this.id + "/wsConnect", this, function (h,s,e) {
+                this.wsConnect(h,s,e)
+            });
             var that = this;
             
             // show last remote host, if there is one
-            if ($.cookie('lasthost')) {
-                var lasthost = $.cookie('lasthost');
-                lasthost = lasthost.replace(/ws:\/\/(.*):.*/, "$1");
-                $('#com-chilipeppr-widget-serialport-host').val(lasthost);
-            }
+            // if ($.cookie('lasthost')) {
+            //     var lasthost = $.cookie('lasthost');
+            //     lasthost = lasthost.replace(/ws:\/\/(.*):.*/, "$1");
+            //     $('#com-chilipeppr-widget-serialport-host').val(lasthost);
+            // }
             
             // setup convenience localhost href click
             $('.spjs-connect2localhost').click(function() {
