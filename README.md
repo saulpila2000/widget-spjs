@@ -96,7 +96,7 @@ To better understand how ChiliPeppr's publish() method works see amplify.js's do
           </tr>
       </thead>
       <tbody>
-      <tr valign="top"><td>/com-chilipeppr-widget-serialport/ws/send</td><td>This widget subscribes to this signal so anybody can publish 
+      <tr valign="top"><td>/com-chilipeppr-widget-serialport/wsConnect</td><td>Connect to host. Pass host, success,error</td></tr><tr valign="top"><td>/com-chilipeppr-widget-serialport/ws/send</td><td>This widget subscribes to this signal so anybody can publish 
 to SPJS by publishing here. You can send any command that SPJS supports. Please see the 
 docs for all support SPJS commands on Github at 
 <a target="_blank" href="https://github.com/chilipeppr/serial-port-json-server#supported-commands">https://github.com/chilipeppr/serial-port-json-server#supported-commands</a>.

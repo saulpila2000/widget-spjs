@@ -400,6 +400,7 @@ cpdefine("inline:com-chilipeppr-widget-serialport", ["chilipeppr_ready", "jquery
             '/recvStatus' : 'Send in a /requestStatus and we will send you back a /recvStatus letting you know if SPJS is connected or not to the Serial Port JSON Server. The payload that comes to you in /recvStatus looks like {"Connected":true, "Websocket": ws } or {"connected":false, "websocket":null}. If you want to be pushed an event when the socket connects or disconnects you should subscribe to /ws/onconnect and /ws/ondisconnect'
         },
         subscribe: {
+            '/wsConnect':'Connect to host. Pass host, success,error',
             '/ws/send' : `This widget subscribes to this signal so anybody can publish 
 to SPJS by publishing here. You can send any command that SPJS supports. Please see the 
 docs for all support SPJS commands on Github at 
